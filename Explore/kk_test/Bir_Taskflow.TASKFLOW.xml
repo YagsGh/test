@@ -1,0 +1,194 @@
+<aetgt:getResponse xmlns:aetgt="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd"
+                   xmlns:types1="http://schemas.active-endpoints.com/appmodules/repository/2010/10/avrepository.xsd">
+   <types1:Item>
+      <types1:EntryId>uk1SwEYrwn2H0Fd-gt-453313-2019-09-13T17:02:05.334Z::tf.xml</types1:EntryId>
+      <types1:Name>Bir_Taskflow</types1:Name>
+      <types1:MimeType>application/xml+taskflow</types1:MimeType>
+      <types1:Description/>
+      <types1:AppliesTo/>
+      <types1:Tags/>
+      <types1:VersionLabel>1.0</types1:VersionLabel>
+      <types1:State>CURRENT</types1:State>
+      <types1:ProcessGroup/>
+      <types1:CreatedBy>krishna_app3@gcs.com</types1:CreatedBy>
+      <types1:CreationDate>2019-09-13T17:02:05Z</types1:CreationDate>
+      <types1:ModifiedBy>GCS_usw3</types1:ModifiedBy>
+      <types1:ModificationDate>2020-12-08T17:08:59Z</types1:ModificationDate>
+      <types1:PublicationStatus>published</types1:PublicationStatus>
+      <types1:PublishedBy>GCS_usw3</types1:PublishedBy>
+      <types1:PublicationDate>2021-02-02T12:54:58Z</types1:PublicationDate>
+      <types1:PublishedContributionId>project:/tf.Bir_Taskflow/Bir_Taskflow.tf.xml</types1:PublishedContributionId>
+      <types1:AutosaveExists>false</types1:AutosaveExists>
+      <types1:Entry>
+         <taskflow xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2010/10/avosScreenflow.xsd"
+                   xmlns:list="urn:activevos:spi:list:functions"
+                   displayName="Bir_Taskflow"
+                   name="Bir_Taskflow"
+                   overrideAPIName="false">
+            <appliesTo/>
+            <description/>
+            <tags/>
+            <generator>Informatica Process Designer 11</generator>
+            <input>
+               <parameter description="" name="Saurabh_file listner" type="reference">
+                  <options>
+                     <option name="required">false</option>
+                     <option name="referenceTo">$po:INTERNALB2BFILELISTENER1565084895</option>
+                     <option name="isCopy">true</option>
+                     <option name="guid">24fZLupif8cfIWiDNWgekn</option>
+                  </options>
+               </parameter>
+            </input>
+            <tempFields>
+               <field description="" name="Data Task 1" type="reference">
+                  <options>
+                     <option name="referenceTo">$po:AmazonS3</option>
+                  </options>
+               </field>
+            </tempFields>
+            <notes/>
+            <deployment suspendOnFault="false" tracingLevel="verbose">
+               <event eventSource="fileListenerTask:Saurabh_file listner"/>
+            </deployment>
+            <flow id="a">
+               <start id="b">
+                  <link id="k0id92t6" targetId="k0id92tb"/>
+               </start>
+               <eventContainer id="k0id92tb">
+                  <service id="k0id92t5">
+                     <title>Data Task 1</title>
+                     <serviceName>ICSExecuteDataTask</serviceName>
+                     <serviceGUID/>
+                     <serviceInput>
+                        <parameter name="Wait for Task to Complete" source="constant" updatable="true">true</parameter>
+                        <parameter name="Max Wait" source="constant" updatable="true">86400</parameter>
+                        <parameter name="Task Name" source="constant" updatable="true">AmazonS3</parameter>
+                        <parameter name="GUID" source="constant" updatable="true">1ixZHVCcV8ogmNQqgk4TeF</parameter>
+                        <parameter name="Task Type" source="constant" updatable="true">SAAS_DSS</parameter>
+                        <parameter name="Has Inout Parameters" source="constant" updatable="true">false</parameter>
+                        <parameter name="taskField" source="nested">
+                           <operation source="field" to="AmazonS3">temp.Data Task 1</operation>
+                        </parameter>
+                     </serviceInput>
+                     <serviceOutput>
+                        <operation source="field" to="temp.Data Task 1/output/Object_Name">Object Name</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Run_Id">Run Id</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Log_Id">Log Id</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Task_Status">Task Status</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Success_Source_Rows">Success Source Rows</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Failed_Source_Rows">Failed Source Rows</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Success_Target_Rows">Success Target Rows</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Failed_Target_Rows">Failed Target Rows</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Start_Time">Start Time</operation>
+                        <operation source="field" to="temp.Data Task 1/output/End_Time">End Time</operation>
+                        <operation source="field" to="temp.Data Task 1/output/Error_Message">Error Message</operation>
+                     </serviceOutput>
+                  </service>
+                  <link id="k0id92t7" targetId="c"/>
+                  <events>
+                     <catch faultField="temp.Data Task 1/fault"
+                            id="k0id92t9"
+                            interrupting="true"
+                            name="error">
+                        <suspend/>
+                     </catch>
+                     <catch faultField="temp.Data Task 1/fault"
+                            id="k0id92ta"
+                            interrupting="true"
+                            name="warning"/>
+                  </events>
+               </eventContainer>
+               <end id="c"/>
+            </flow>
+            <dependencies>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="AmazonS3"
+                              isByCopy="true"
+                              name="AmazonS3">
+                  <description/>
+                  <tags/>
+                  <detail>
+                     <field label="Output Parameters" name="output" type="reference"/>
+                     <field label="Fault" name="fault" type="reference"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="INTERNALB2BFILELISTENER1565084895"
+                              isByCopy="true"
+                              name="INTERNALB2BFILELISTENER1565084895">
+                  <description>This process object represents a taskflow specific file task field details.</description>
+                  <tags/>
+                  <detail>
+                     <field label="Arrived Files" name="arrivedFiles" type="objectlist">
+                        <options>
+                           <option name="referenceTo">$po:INTERNALB2BFILELISTENER1565084895-arrivedFiles</option>
+                           <option name="relationshipName">Child</option>
+                           <option hide="true" name="multiSelect">true</option>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                     <field label="Update Files" name="updatedFiles" type="objectlist">
+                        <options>
+                           <option name="referenceTo">$po:INTERNALB2BFILELISTENER1565084895-updatedFiles</option>
+                           <option name="relationshipName">Child</option>
+                           <option hide="true" name="multiSelect">true</option>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                     <field label="Deleted Files" name="deletedFiles" type="objectlist">
+                        <options>
+                           <option name="referenceTo">$po:INTERNALB2BFILELISTENER1565084895-deletedFiles</option>
+                           <option name="relationshipName">Child</option>
+                           <option hide="true" name="multiSelect">true</option>
+                           <option name="required">false</option>
+                        </options>
+                     </field>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="INTERNALB2BFILELISTENER1565084895-arrivedFiles"
+                              isByCopy="true"
+                              name="INTERNALB2BFILELISTENER1565084895-arrivedFiles">
+                  <description>This process object represents a arrivedFiles structure of the file task field.This is in case of taskflow.</description>
+                  <tags/>
+                  <detail>
+                     <field label="Path" name="path" type="string"/>
+                     <field label="Name" name="name" type="string"/>
+                     <field label="Size" name="size" type="string"/>
+                     <field label="Last Modified" name="lastModified" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="INTERNALB2BFILELISTENER1565084895-updatedFiles"
+                              isByCopy="true"
+                              name="INTERNALB2BFILELISTENER1565084895-updatedFiles">
+                  <description>This process object represents a updatedFiles structure of the file task field.This is in case of taskflow.</description>
+                  <tags/>
+                  <detail>
+                     <field label="Path" name="path" type="string"/>
+                     <field label="Name" name="name" type="string"/>
+                     <field label="Size" name="size" type="string"/>
+                     <field label="Last Modified" name="lastModified" type="string"/>
+                  </detail>
+               </processObject>
+               <processObject xmlns="http://schemas.active-endpoints.com/appmodules/screenflow/2011/06/avosHostEnvironment.xsd"
+                              displayName="INTERNALB2BFILELISTENER1565084895-deletedFiles"
+                              isByCopy="true"
+                              name="INTERNALB2BFILELISTENER1565084895-deletedFiles">
+                  <description>This process object represents file listener task deletedFiles structure.This is in case of taskflow.</description>
+                  <tags/>
+                  <detail>
+                     <field label="Path" name="path" type="string"/>
+                     <field label="Name" name="name" type="string"/>
+                     <field label="Size" name="size" type="string"/>
+                     <field label="Last Modified" name="lastModified" type="string"/>
+                  </detail>
+               </processObject>
+            </dependencies>
+         </taskflow>
+      </types1:Entry>
+      <types1:GUID>7eavSaDNPL2fkRxZXwdCUP</types1:GUID>
+      <types1:DisplayName>Bir_Taskflow</types1:DisplayName>
+   </types1:Item>
+   <types1:CurrentServerDateTime>2021-03-09T15:02:12.97Z</types1:CurrentServerDateTime>
+</aetgt:getResponse>
